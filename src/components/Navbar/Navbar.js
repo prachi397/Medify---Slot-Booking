@@ -18,14 +18,20 @@ const Navbar = () => {
         <Toolbar sx={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems:"center",
-            flexWrap: "wrap",
-            px: "2"
+            alignItems: { xs: "flex-start", md: "center" }, 
+            flexWrap: { xs: "wrap", md: "nowrap" }, 
+            px: 2,
         }}>
           <IconButton aria-label="menu" sx={{ mr: 2 }}>
             <img src={MedifyLogo} alt="logo" width={80} height={27} />
           </IconButton>
-          <Box sx={{display:"flex", flexWrap:"wrap", gap:2, alignItems:"center", mt: { xs: 2, sm: 0 }}}>
+          <Box sx={{
+            display: "flex",
+            flexWrap: "wrap", 
+            gap: 2,
+            alignItems: "center",
+            mt: { xs: 2, md: 0 },
+          }}>
           <Button color="inherit">Find Doctors</Button>
           <Button color="inherit">Hospitals</Button>
           <Button color="inherit">Medicines</Button>
