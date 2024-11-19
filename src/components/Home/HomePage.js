@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import heroImage from "../../Assets/hero_image.png";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Icon, Typography } from "@mui/material";
+import FindCentersModal from "../FindCentersModal/FindCentersModal";
 
 const HomePage = () => {
+    
   return (
     <div>
       <Navbar />
@@ -92,6 +94,7 @@ const HomePage = () => {
             />
           </Grid>
         </Grid>
+        <FindCentersModal/>
       </Box>
     </div>
   );
