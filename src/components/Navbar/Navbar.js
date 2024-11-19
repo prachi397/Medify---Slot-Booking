@@ -17,7 +17,8 @@ const Navbar = () => {
       <AppBar position="static" className="lower-navbar">
         <Toolbar sx={{
             display: "flex",
-            justifyContent: "space-between",
+            gap: "35px",
+            justifyContent: "center",
             alignItems: { xs: "flex-start", md: "center" }, 
             flexWrap: { xs: "wrap", md: "nowrap" }, 
             px: 2,
