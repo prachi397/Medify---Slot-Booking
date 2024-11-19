@@ -1,0 +1,22 @@
+.upper-heading{
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px;
+    position: static;
+}
+.upper-heading span{
+    font-family: Poppins;
+    font-size: 14px;
+}
+.lower-navbar{
+    background: linear-gradient(81deg, #E7F0FF 9.01%, rgba(232, 241, 255, 0.47) 89.11%) !important;
+    color: black !important;
+    padding: 8px 5rem 8px 5rem !important;
+}
+
+.css-100ek8v-MuiButtonBase-root-MuiButton-root{
+    text-transform: none !important;
+}
+.booking-btn{
+    background-color: var(--primary-color) !important;
+}
