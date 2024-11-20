@@ -4,9 +4,9 @@ import heroImage from "../../Assets/hero_image.png";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import FindCentersModal from "../FindCentersModal/FindCentersModal";
 import CarouselComp from "../CarouselComp/CarouselComp";
+import FindBySpecialisation from "../FindBySpecialisation/FindBySpecialisation";
 
 const HomePage = () => {
-    
   return (
     <div>
       {/* navbar */}
@@ -49,7 +49,7 @@ const HomePage = () => {
               variant="h3"
               sx={{
                 mb: 2,
-                fontWeight: "bold"
+                fontWeight: "bold",
               }}
             >
               <span>Medical</span>{" "}
@@ -98,10 +98,16 @@ const HomePage = () => {
           </Grid>
         </Grid>
       </Box>
-       {/* search section */}
-       <FindCentersModal/>
-      {/* carousel component  */}
-      <CarouselComp/>
+      <Box>
+        {/* search section */}
+        <FindCentersModal />
+
+        {/* carousel component  */}
+        <CarouselComp />
+
+        {/* find by specialisation section */}
+        <FindBySpecialisation/>
+      </Box>
     </div>
   );
 };

@@ -82,10 +82,9 @@ const FindCentersModal = () => {
         gap: "30px",
         background: "#FFFFFF",
         boxShadow: 2,
-        marginTop:"-2rem",
+        marginTop:"-6rem",
         padding: { xs: 2, sm: 4 },
-        ml:12,
-        mr:12
+        mx: { xs: 2, sm: 4, md: 10 }
       }}
     >
       <Box
@@ -189,6 +188,7 @@ const FindCentersModal = () => {
                 padding: 2,
                 boxShadow: 2,
                 borderRadius: 2,
+                background: "#FAFBFE",
                 "&:hover": { boxShadow: 4 },
               }}
             >
