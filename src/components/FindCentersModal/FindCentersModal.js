@@ -67,7 +67,7 @@ const FindCentersModal = () => {
     setSelectedState(value);
     fetchCity(value);
   };
-  
+
   //function to set selected city
   const handleCityChange = (e, value) => {
     setSelectedCity(value);
@@ -81,8 +81,11 @@ const FindCentersModal = () => {
         justifyContent: "center",
         gap: "30px",
         background: "#FFFFFF",
+        boxShadow: 2,
+        marginTop:"-2rem",
         padding: { xs: 2, sm: 4 },
-        boxShadow: "6px 6px 35px 0px #1028511C",
+        ml:12,
+        mr:12
       }}
     >
       <Box
@@ -95,7 +98,7 @@ const FindCentersModal = () => {
         }}
       >
         <Autocomplete
-          sx={{ width: "30%" }}
+          sx={{ width: { xs: "80%", sm: "40%", lg: "30%" }}}
           freeSolo
           id="state"
           options={state.map((ele) => ele)}
@@ -124,7 +127,7 @@ const FindCentersModal = () => {
           )}
         />
         <Autocomplete
-          sx={{ width: "30%" }}
+           sx={{ width: { xs: "80%", sm: "40%", lg: "30%" }}}
           freeSolo
           id="city"
           options={city.map((ele) => ele)}

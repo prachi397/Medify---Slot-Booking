@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import heroImage from "../../Assets/hero_image.png";
-import { Box, Button, Grid, Icon, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import FindCentersModal from "../FindCentersModal/FindCentersModal";
+import CarouselComp from "../CarouselComp/CarouselComp";
 
 const HomePage = () => {
     
   return (
     <div>
+      {/* navbar */}
       <Navbar />
       <Box
         sx={{
@@ -16,6 +18,7 @@ const HomePage = () => {
           backgroundColor: "#f0f8ff",
         }}
       >
+        {/* hero section */}
         <Grid
           container
           spacing={4}
@@ -94,8 +97,11 @@ const HomePage = () => {
             />
           </Grid>
         </Grid>
-        <FindCentersModal/>
       </Box>
+       {/* search section */}
+       <FindCentersModal/>
+      {/* carousel component  */}
+      <CarouselComp/>
     </div>
   );
 };
