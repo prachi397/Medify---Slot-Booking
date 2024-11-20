@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import React from "react";
 import laboratory from "../../Assets/Drugstore.png";
 import primaryCare from "../../Assets/PrimaryCare.png";
@@ -23,12 +23,17 @@ const FindBySpecialisation = () => {
     <Box
     sx={{
       display: "flex",
+      flexDirection:"column",
       justifyContent: "center",
+      gap:"30px",
       alignItems: "center",
       padding: { xs: 2, sm: 5 },
       mx: { xs: 6}
     }}
   >
+    <Typography variant="h3" sx={{ fontSize: "26px", fontWeight:"600", color:"#1B3C74" }}>
+    Find By Specialisation
+      </Typography>
     <Grid
       container
       spacing={2}
@@ -61,6 +66,17 @@ const FindBySpecialisation = () => {
         </Grid>
       ))}
     </Grid>
+    <Button
+          variant="contained"
+          sx={{
+            backgroundColor: "#2AA7FF",
+            padding: "10px 20px",
+            fontWeight: "bold",
+            textTransform: "none",
+          }}
+        >
+          Search
+        </Button>
     </Box>
   );
 };

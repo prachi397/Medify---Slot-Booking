@@ -5,6 +5,7 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import FindCentersModal from "../FindCentersModal/FindCentersModal";
 import CarouselComp from "../CarouselComp/CarouselComp";
 import FindBySpecialisation from "../FindBySpecialisation/FindBySpecialisation";
+import MedicalSpecialistCarousel from "../MedicalSpecialistCarousel/MedicalSpecialistCarousel";
 
 const HomePage = () => {
   return (
@@ -107,6 +108,9 @@ const HomePage = () => {
 
         {/* find by specialisation section */}
         <FindBySpecialisation/>
+
+        {/* medical specialist carousel */}
+        <MedicalSpecialistCarousel/>
       </Box>
     </div>
   );
