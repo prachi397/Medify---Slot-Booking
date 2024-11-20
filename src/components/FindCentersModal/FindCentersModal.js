@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Autocomplete,
   Box,
@@ -19,6 +19,12 @@ import AmbulanceIcon from "../../Assets/Ambulance.png";
 import SearchIcon from "@mui/icons-material/Search";
 
 const FindCentersModal = () => {
+  const [state, setState] = useState([]);
+  const [city, setCity] = useState([]);
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+
+  //tiles data to display
   const tilesData = [
     { icon: DoctorIcon, value: "Doctors" },
     { icon: LabIcon, value: "Labs" },
@@ -26,6 +32,47 @@ const FindCentersModal = () => {
     { icon: MedicalStoreIcon, value: "Medical Store" },
     { icon: AmbulanceIcon, value: "Ambulance" },
   ];
+
+  //getting state data when page loads
+  useEffect(() => {
+    fetchStates();
+  }, []);
+
+  //fucntion to fetch state data
+  async function fetchStates() {
+    try {
+      let url = "https://meddata-backend.onrender.com/states";
+      let resp = await fetch(url);
+      let result = await resp.json();
+      setState(result);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  //fucntion to fetch city data based on the selected state
+  async function fetchCity(state) {
+    try {
+      let url = `https://meddata-backend.onrender.com/cities/${state}`;
+      let resp = await fetch(url);
+      let result = await resp.json();
+      setCity(result);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  // fucntion to set selected state
+  const handleStateChange = (e, value) => {
+    setSelectedState(value);
+    fetchCity(value);
+  };
+  
+  //function to set selected city
+  const handleCityChange = (e, value) => {
+    setSelectedCity(value);
+  };
+
   return (
     <Box
       sx={{
@@ -35,6 +82,7 @@ const FindCentersModal = () => {
         gap: "30px",
         background: "#FFFFFF",
         padding: { xs: 2, sm: 4 },
+        boxShadow: "6px 6px 35px 0px #1028511C",
       }}
     >
       <Box
@@ -50,7 +98,9 @@ const FindCentersModal = () => {
           sx={{ width: "30%" }}
           freeSolo
           id="state"
-          // options={top100Films.map((option) => option.title)}
+          options={state.map((ele) => ele)}
+          onChange={handleStateChange}
+          value={selectedState}
           disableClearable
           renderInput={(params) => (
             <TextField
@@ -77,7 +127,9 @@ const FindCentersModal = () => {
           sx={{ width: "30%" }}
           freeSolo
           id="city"
-          // options={top100Films.map((option) => option.title)}
+          options={city.map((ele) => ele)}
+          value={selectedCity}
+          onChange={handleCityChange}
           disableClearable
           renderInput={(params) => (
             <TextField
