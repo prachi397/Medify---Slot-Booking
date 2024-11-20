@@ -15,7 +15,7 @@ const MedicalSpecialistCarousel = () => {
   const images = [doctor1, doctor2, doctor3, doctor4, doctor5];
 
   return (
-    <Box sx={{background:"#FFFFFF",  paddingTop: { xs: 2, sm: 4, lg: 6 },}}>
+    <Box sx={{ background: "#FFFFFF", paddingTop: { xs: 2, sm: 4, lg: 6 } }}>
       <Typography
         variant="h3"
         sx={{
@@ -35,10 +35,10 @@ const MedicalSpecialistCarousel = () => {
         autoplay={{ delay: 3000 }}
         slidesPerView={4}
         breakpoints={{
-            320: {
-                slidesPerView: 1,
-                spaceBetween: 20, 
-              },
+          320: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
           640: {
             slidesPerView: 2,
             spaceBetween: 10,
@@ -55,17 +55,24 @@ const MedicalSpecialistCarousel = () => {
       >
         {images.map((src, index) => (
           <SwiperSlide key={index}>
-            <Box 
-             sx={{background: "linear-gradient(144.2deg, #E1F3FF 0%, #2AA7FF 100%)",
-                paddingTop: "40px", 
+            <Box
+              sx={{
+                background:
+                  "linear-gradient(144.2deg, #E1F3FF 0%, #2AA7FF 100%)",
+                paddingTop: "40px",
                 borderTopLeftRadius: "50%",
                 borderTopRightRadius: "50%",
-             }}>
-            <img
-              src={src}
-              alt={`Slide ${index + 1}`}
-              style={{ width: "250px", height: "230px", borderRadius: "10px" }}
-            />
+              }}
+            >
+              <img
+                src={src}
+                alt={`Slide ${index + 1}`}
+                style={{
+                  width: "250px",
+                  height: "230px",
+                  borderRadius: "10px",
+                }}
+              />
             </Box>
           </SwiperSlide>
         ))}

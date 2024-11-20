@@ -1,9 +1,9 @@
 import React from "react";
 import "./navbar.css";
-import { AppBar, Box, Button, getAppBarUtilityClass, IconButton, Toolbar } from "@mui/material";
+import { AppBar, Box, Button, IconButton, Toolbar } from "@mui/material";
 import MedifyLogo from "../../Assets/MedifyLogo.png";
 
-const Navbar = () => {
+const Navbar = ({pageName}) => {
   return (
     <div className="navbar">
       <div className="upper-heading">
@@ -14,7 +14,7 @@ const Navbar = () => {
           cleanliness.
         </span>
       </div>
-      <AppBar position="static" className="lower-navbar">
+      <AppBar position="static" className={pageName==="HomePage" ? "lower-navbar":'other-navbar'}>
         <Toolbar sx={{
             display: "flex",
             gap: "35px",

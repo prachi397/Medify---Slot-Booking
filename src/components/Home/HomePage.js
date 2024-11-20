@@ -11,7 +11,7 @@ const HomePage = () => {
   return (
     <div>
       {/* navbar */}
-      <Navbar />
+      <Navbar pageName="HomePage"/>
       <Box
         sx={{
           padding: { xs: 2, sm: 4 },
