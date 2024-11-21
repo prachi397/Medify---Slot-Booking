@@ -19,7 +19,7 @@ import AmbulanceIcon from "../../Assets/Ambulance.png";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 
-const FindCentersModal = ({pageName}) => {
+const FindCentersModal = ({pageName,children}) => {
   const [state, setState] = useState([]);
   const [city, setCity] = useState([]);
   const [selectedState, setSelectedState] = useState("");
@@ -92,8 +92,13 @@ const FindCentersModal = ({pageName}) => {
 
   //function to navigate another page when click on search
   function handleBtnClick(){
-    navigate('/find-doctors');
-    fetchDoctors(selectedState,selectedCity);
+    if(pageName === "HomePage"){
+      navigate('/find-doctors');
+    }
+    fetchDoctors(selectedState, selectedCity);
+    if (children) {
+      children({ selectedState, selectedCity, doctorsData });
+    }
   }
 
   return (
