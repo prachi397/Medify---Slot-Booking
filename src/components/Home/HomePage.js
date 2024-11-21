@@ -6,6 +6,7 @@ import FindCentersModal from "../FindCentersModal/FindCentersModal";
 import CarouselComp from "../CarouselComp/CarouselComp";
 import FindBySpecialisation from "../FindBySpecialisation/FindBySpecialisation";
 import MedicalSpecialistCarousel from "../MedicalSpecialistCarousel/MedicalSpecialistCarousel";
+import PatientCaring from "../PatientCaring/PatientCaring";
 
 const HomePage = () => {
   return (
@@ -111,6 +112,9 @@ const HomePage = () => {
 
         {/* medical specialist carousel */}
         <MedicalSpecialistCarousel/>
+
+        {/* patient caring section */}
+        <PatientCaring/>
       </Box>
     </div>
   );
