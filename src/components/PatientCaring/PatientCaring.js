@@ -3,6 +3,7 @@ import React from "react";
 import care1Img from "../../Assets/care1.png";
 import care2Img from "../../Assets/care2.png";
 import tickImg from "../../Assets/tick.png";
+import callImg from "../../Assets/call.png";
 
 const PatientCaring = () => {
   return (
@@ -39,6 +40,23 @@ const PatientCaring = () => {
           }}
         />
         <img src={care2Img} alt="care2" height="230px" width="270px" />
+        <Box sx={{
+          borderRadius:"8px",
+          padding:"10px",
+          background:"#FFFFFF",
+            position: "absolute",
+            top: "43px",
+            left: "37px",
+          }}>
+        <Box sx={{display:"flex",alignItems:"center"}}>
+        <img
+          src={callImg}
+          alt="callImg"
+        />
+        <span style={{color:"#1B3C74"}}>Free Consultation</span>
+        </Box>
+        <Typography sx={{color:"#77829D"}}>Consultation with the best</Typography>
+        </Box>
       </Box>
 
       {/* the text section */}
