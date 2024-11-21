@@ -14,7 +14,7 @@ const PatientCaring = () => {
         justifyContent: "center",
         padding: "30px",
         paddingBottom: "8rem",
-        gap:"30px"
+        gap: "30px",
       }}
     >
       {/* image section */}
@@ -40,22 +40,23 @@ const PatientCaring = () => {
           }}
         />
         <img src={care2Img} alt="care2" height="230px" width="270px" />
-        <Box sx={{
-          borderRadius:"8px",
-          padding:"10px",
-          background:"#FFFFFF",
+        <Box
+          sx={{
+            borderRadius: "8px",
+            padding: "10px",
+            background: "#FFFFFF",
             position: "absolute",
             top: "43px",
             left: "37px",
-          }}>
-        <Box sx={{display:"flex",alignItems:"center"}}>
-        <img
-          src={callImg}
-          alt="callImg"
-        />
-        <span style={{color:"#1B3C74"}}>Free Consultation</span>
-        </Box>
-        <Typography sx={{color:"#77829D"}}>Consultation with the best</Typography>
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <img src={callImg} alt="callImg" />
+            <span style={{ color: "#1B3C74" }}>Free Consultation</span>
+          </Box>
+          <Typography sx={{ color: "#77829D" }}>
+            Consultation with the best
+          </Typography>
         </Box>
       </Box>
 

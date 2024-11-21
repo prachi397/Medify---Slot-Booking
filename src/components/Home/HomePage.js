@@ -9,6 +9,7 @@ import MedicalSpecialistCarousel from "../MedicalSpecialistCarousel/MedicalSpeci
 import PatientCaring from "../PatientCaring/PatientCaring";
 import LatestNews from "../LatestNews/LatestNews";
 import OurFamilies from "../OurFamilies/OurFamilies";
+import FrequentlyAsked from "../FrequentlyAsked/FrequentlyAsked";
 
 const HomePage = () => {
   return (
@@ -123,6 +124,9 @@ const HomePage = () => {
 
         {/* our family section */}
         <OurFamilies/>
+        
+        {/* frequently asked questions section */}
+        <FrequentlyAsked/>
       </Box>
     </div>
   );
