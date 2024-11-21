@@ -8,6 +8,7 @@ import FindBySpecialisation from "../FindBySpecialisation/FindBySpecialisation";
 import MedicalSpecialistCarousel from "../MedicalSpecialistCarousel/MedicalSpecialistCarousel";
 import PatientCaring from "../PatientCaring/PatientCaring";
 import LatestNews from "../LatestNews/LatestNews";
+import OurFamilies from "../OurFamilies/OurFamilies";
 
 const HomePage = () => {
   return (
@@ -119,6 +120,9 @@ const HomePage = () => {
         
         {/* latest news section */}
         <LatestNews/>
+
+        {/* our family section */}
+        <OurFamilies/>
       </Box>
     </div>
   );
