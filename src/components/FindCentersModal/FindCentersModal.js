@@ -17,12 +17,17 @@ import HospitalIcon from "../../Assets/Hospital.png";
 import MedicalStoreIcon from "../../Assets/Capsule.png";
 import AmbulanceIcon from "../../Assets/Ambulance.png";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
-const FindCentersModal = () => {
+const FindCentersModal = ({pageName}) => {
   const [state, setState] = useState([]);
   const [city, setCity] = useState([]);
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+
+  const [doctorsData, setDoctorsData] = useState([]);
+
+  const navigate = useNavigate('');
 
   //tiles data to display
   const tilesData = [
@@ -73,6 +78,24 @@ const FindCentersModal = () => {
     setSelectedCity(value);
   };
 
+  //function to fetch doctors data based on selected city and state
+  async function fetchDoctors(selectedState, selectedCity){
+    try{
+      let url = `https://meddata-backend.onrender.com/data?state=${selectedState}&city=${selectedCity}`;
+      let resp = await fetch(url);
+      let result = await resp.json();
+      setDoctorsData(result);
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  //function to navigate another page when click on search
+  function handleBtnClick(){
+    navigate('/find-doctors');
+    fetchDoctors(selectedState,selectedCity);
+  }
+
   return (
     <Box
       sx={{
@@ -82,7 +105,8 @@ const FindCentersModal = () => {
         gap: "30px",
         background: "#FFFFFF",
         boxShadow: 2,
-        marginTop:"-6rem",
+        marginTop: pageName === "HomePage" ? "-6rem" : "-2rem",
+        borderRadius: pageName === "HomePage" ? "0px" : "5px",
         padding: { xs: 2, sm: 4 },
         mx: { xs: 2, sm: 4, md: 10 }
       }}
@@ -170,11 +194,14 @@ const FindCentersModal = () => {
             textTransform: "none",
           }}
           startIcon={<SearchIcon />}
+          onClick={handleBtnClick}
         >
           Search
         </Button>
       </Box>
-      <Typography variant="h3" sx={{ fontSize: "26px" }}>
+      {pageName === "HomePage" && (
+        <>
+          <Typography variant="h3" sx={{ fontSize: "26px" }}>
         You may be looking for
       </Typography>
       <Grid container spacing={2} justifyContent="center">
@@ -207,6 +234,8 @@ const FindCentersModal = () => {
           </Grid>
         ))}
       </Grid>
+        </>
+      )}
     </Box>
   );
 };

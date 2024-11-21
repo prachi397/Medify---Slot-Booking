@@ -106,7 +106,7 @@ const HomePage = () => {
       </Box>
       <Box>
         {/* search section */}
-        <FindCentersModal />
+        <FindCentersModal pageName="HomePage"/>
 
         {/* carousel component  */}
         <CarouselComp />
