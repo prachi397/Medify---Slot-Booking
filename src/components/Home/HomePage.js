@@ -7,6 +7,7 @@ import CarouselComp from "../CarouselComp/CarouselComp";
 import FindBySpecialisation from "../FindBySpecialisation/FindBySpecialisation";
 import MedicalSpecialistCarousel from "../MedicalSpecialistCarousel/MedicalSpecialistCarousel";
 import PatientCaring from "../PatientCaring/PatientCaring";
+import LatestNews from "../LatestNews/LatestNews";
 
 const HomePage = () => {
   return (
@@ -115,6 +116,9 @@ const HomePage = () => {
 
         {/* patient caring section */}
         <PatientCaring/>
+        
+        {/* latest news section */}
+        <LatestNews/>
       </Box>
     </div>
   );
