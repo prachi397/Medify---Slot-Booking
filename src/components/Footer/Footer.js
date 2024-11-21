@@ -13,6 +13,11 @@ const Footer = () => {
       <Box
         sx={{
           display: "flex",
+          flexDirection: {
+            xs: "column", 
+            sm: "column",
+            md: "row", 
+          },
           gap: "40px",
           alignItems: "center",
           justifyContent: "center",
