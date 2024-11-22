@@ -4,15 +4,6 @@ import FindCentersModal from "../FindCentersModal/FindCentersModal";
 import { Box } from "@mui/material";
 
 const FindDoctors = () => {
-  const [state, setState] = useState("");
-  const [city, setCity] = useState("");
-  const [doctorsData, setDoctorsData] = useState([]);
-
-  const handleSearch = ({ selectedState, selectedCity, doctorsData }) => {
-    setState(selectedState);
-    setCity(selectedCity);
-    setDoctorsData(doctorsData);
-  };
   return (
     <div>
       <Navbar pageName="FindDoctors" />
@@ -24,11 +15,7 @@ const FindDoctors = () => {
           borderBottomLeftRadius: "10px",
         }}
       ></Box>
-      <FindCentersModal>
-      {({ selectedState, selectedCity, doctorsData }) =>
-          handleSearch({ selectedState, selectedCity, doctorsData })
-        }
-      </FindCentersModal>
+      <FindCentersModal pageName="FindDoctors"/>
     </div>
   );
 };

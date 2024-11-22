@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Autocomplete,
   Box,
@@ -18,16 +18,24 @@ import MedicalStoreIcon from "../../Assets/Capsule.png";
 import AmbulanceIcon from "../../Assets/Ambulance.png";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
+import AvailableCenters from "../FindDoctors/AvailableCenters";
+import { FindCentersContext } from "../FindDoctors/FindCentersContext";
 
-const FindCentersModal = ({pageName,children}) => {
+const FindCentersModal = ({ pageName }) => {
+  const {
+    selectedState,
+    setSelectedState,
+    selectedCity,
+    setSelectedCity,
+    doctorsData,
+    setDoctorsData,
+  } = useContext(FindCentersContext);
   const [state, setState] = useState([]);
   const [city, setCity] = useState([]);
-  const [selectedState, setSelectedState] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
 
-  const [doctorsData, setDoctorsData] = useState([]);
-
-  const navigate = useNavigate('');
+  const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate("");
 
   //tiles data to display
   const tilesData = [
@@ -51,7 +59,9 @@ const FindCentersModal = ({pageName,children}) => {
       let result = await resp.json();
       setState(result);
     } catch (err) {
-      console.log(err);
+      enqueueSnackbar("Error in fetching state data", {
+        variant: "error",
+      });
     }
   }
 
@@ -63,7 +73,9 @@ const FindCentersModal = ({pageName,children}) => {
       let result = await resp.json();
       setCity(result);
     } catch (err) {
-      console.log(err);
+      enqueueSnackbar("Error in fetching city data", {
+        variant: "error",
+      });
     }
   }
 
@@ -79,25 +91,30 @@ const FindCentersModal = ({pageName,children}) => {
   };
 
   //function to fetch doctors data based on selected city and state
-  async function fetchDoctors(selectedState, selectedCity){
-    try{
+  async function fetchDoctors(selectedState, selectedCity) {
+    try {
       let url = `https://meddata-backend.onrender.com/data?state=${selectedState}&city=${selectedCity}`;
       let resp = await fetch(url);
       let result = await resp.json();
       setDoctorsData(result);
-    }catch(err){
-      console.log(err);
+    } catch (err) {
+      enqueueSnackbar("Error in fetching doctor data", {
+        variant: "error",
+      });
     }
   }
 
   //function to navigate another page when click on search
-  function handleBtnClick(){
-    if(pageName === "HomePage"){
-      navigate('/find-doctors');
-    }
-    fetchDoctors(selectedState, selectedCity);
-    if (children) {
-      children({ selectedState, selectedCity, doctorsData });
+  function handleBtnClick() {
+    if (selectedCity && selectedState) {
+      fetchDoctors(selectedState, selectedCity);
+      if (pageName === "HomePage") {
+        navigate("/find-doctors");
+      }
+    } else {
+      enqueueSnackbar("Please select state and city", {
+        variant: "error",
+      });
     }
   }
 
@@ -113,7 +130,7 @@ const FindCentersModal = ({pageName,children}) => {
         marginTop: pageName === "HomePage" ? "-6rem" : "-2rem",
         borderRadius: pageName === "HomePage" ? "0px" : "5px",
         padding: { xs: 2, sm: 4 },
-        mx: { xs: 2, sm: 4, md: 10 }
+        mx: { xs: 2, sm: 4, md: 10 },
       }}
     >
       <Box
@@ -126,7 +143,7 @@ const FindCentersModal = ({pageName,children}) => {
         }}
       >
         <Autocomplete
-          sx={{ width: { xs: "80%", sm: "40%", lg: "30%" }}}
+          sx={{ width: { xs: "80%", sm: "40%", lg: "30%" } }}
           freeSolo
           id="state"
           options={state.map((ele) => ele)}
@@ -155,7 +172,7 @@ const FindCentersModal = ({pageName,children}) => {
           )}
         />
         <Autocomplete
-           sx={{ width: { xs: "80%", sm: "40%", lg: "30%" }}}
+          sx={{ width: { xs: "80%", sm: "40%", lg: "30%" } }}
           freeSolo
           id="city"
           options={city.map((ele) => ele)}
@@ -204,41 +221,44 @@ const FindCentersModal = ({pageName,children}) => {
           Search
         </Button>
       </Box>
+      {pageName === "FindDoctors" && (
+        <AvailableCenters/>
+      )}
       {pageName === "HomePage" && (
         <>
           <Typography variant="h3" sx={{ fontSize: "26px" }}>
-        You may be looking for
-      </Typography>
-      <Grid container spacing={2} justifyContent="center">
-        {tilesData.map((tile, index) => (
-          <Grid item key={index} xs={12} sm={6} md={2.4}>
-            <Card
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                padding: 2,
-                boxShadow: 2,
-                borderRadius: 2,
-                background: "#FAFBFE",
-                "&:hover": { boxShadow: 4 },
-              }}
-            >
-              <CardMedia
-                component="img"
-                src={tile.icon}
-                alt={tile.value}
-                sx={{ width: 50, height: 50, marginBottom: 2 }}
-              />
-              <CardContent sx={{ textAlign: "center", padding: 0 }}>
-                <Typography variant="body1" sx={{ fontWeight: 600 }}>
-                  {tile.value}
-                </Typography>
-              </CardContent>
-            </Card>
+            You may be looking for
+          </Typography>
+          <Grid container spacing={2} justifyContent="center">
+            {tilesData.map((tile, index) => (
+              <Grid item key={index} xs={12} sm={6} md={2.4}>
+                <Card
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    padding: 2,
+                    boxShadow: 2,
+                    borderRadius: 2,
+                    background: "#FAFBFE",
+                    "&:hover": { boxShadow: 4 },
+                  }}
+                >
+                  <CardMedia
+                    component="img"
+                    src={tile.icon}
+                    alt={tile.value}
+                    sx={{ width: 50, height: 50, marginBottom: 2 }}
+                  />
+                  <CardContent sx={{ textAlign: "center", padding: 0 }}>
+                    <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                      {tile.value}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
         </>
       )}
     </Box>

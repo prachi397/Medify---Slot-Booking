@@ -30,7 +30,9 @@ const Navbar = ({ pageName }) => {
           }}
         >
           <IconButton aria-label="menu" sx={{ mr: 2 }}>
+            <NavLink to='/'>
             <img src={MedifyLogo} alt="logo" width={80} height={27} />
+            </NavLink>
           </IconButton>
           <Box
             sx={{
