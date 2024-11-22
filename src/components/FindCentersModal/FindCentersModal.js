@@ -221,9 +221,9 @@ const FindCentersModal = ({ pageName }) => {
           Search
         </Button>
       </Box>
-      {pageName === "FindDoctors" && (
+      {/* {pageName === "FindDoctors" && (
         <AvailableCenters/>
-      )}
+      )} */}
       {pageName === "HomePage" && (
         <>
           <Typography variant="h3" sx={{ fontSize: "26px" }}>

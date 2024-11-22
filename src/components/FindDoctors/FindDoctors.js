@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import FindCentersModal from "../FindCentersModal/FindCentersModal";
 import { Box } from "@mui/material";
+import AvailableCenters from "./AvailableCenters";
 
 const FindDoctors = () => {
   return (
@@ -16,6 +17,7 @@ const FindDoctors = () => {
         }}
       ></Box>
       <FindCentersModal pageName="FindDoctors"/>
+      <AvailableCenters/>
     </div>
   );
 };
