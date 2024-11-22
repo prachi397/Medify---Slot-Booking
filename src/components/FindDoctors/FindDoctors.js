@@ -3,6 +3,8 @@ import Navbar from "../Navbar/Navbar";
 import FindCentersModal from "../FindCentersModal/FindCentersModal";
 import { Box } from "@mui/material";
 import AvailableCenters from "./AvailableCenters";
+import FrequentlyAsked from "../FrequentlyAsked/FrequentlyAsked";
+import Footer from "../Footer/Footer";
 
 const FindDoctors = () => {
   return (
@@ -16,8 +18,13 @@ const FindDoctors = () => {
           borderBottomLeftRadius: "10px",
         }}
       ></Box>
-      <FindCentersModal pageName="FindDoctors"/>
-      <AvailableCenters/>
+      <FindCentersModal pageName="FindDoctors" />
+      <AvailableCenters />
+      {/* frequently asked questions section */}
+      <FrequentlyAsked />
+
+      {/* footer */}
+      <Footer />
     </div>
   );
 };
