@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Card,
   CardContent,
   CardMedia,
@@ -22,6 +23,7 @@ const AvailableCenters = () => {
         gap: "20px",
         padding: { xs: 2, sm: 4 },
         justifyContent: "center",
+        flexDirection: { xs: "column", sm: "row" },
       }}
     >
       <Box
@@ -42,54 +44,113 @@ const AvailableCenters = () => {
           </Typography>
         </Box>
         <Box>
-        <Grid container spacing={2} sx={{display:"flex", flexDirection:"column"}}>
-          {doctorsData.map((ele, index) => (
-            <Grid item key={index} sx={{display:"flex"}}>
-              <Card
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  padding: 2,
-                  boxShadow: 2,
-                  borderRadius: 2,
-                  "&:hover": { boxShadow: 4 },
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  src={centerImg}
-                  alt="center image"
-                  sx={{ width: 120, height: 130 }}
-                />
-                <CardContent sx={{display:"flex",flexDirection:"column", textAlign: "Left", padding: "10px" }}>
-                  <Typography variant="body1" sx={{ fontWeight: 600, color:"#14BEF0", marginBottom:"5px" }}>
-                    {ele["Hospital Name"]}
-                  </Typography>
-                  <Typography variant="p" style={{fontWeight:"bold"}}>
-                    {ele.Address}
-                  </Typography>
-                  <Typography variant="p">
-                  Smilessence Center for Advanced Dentistry + 1
-                  </Typography>
-                  <Typography variant="p" sx={{marginBottom:"5px"}}>
-                  more
-                  </Typography>
-                  <Typography variant="p" sx={{display:"flex", gap:"7px"}}>
-                    <span style={{color:"#02A401"}}>FREE</span>
-                    <span style={{color:"#787887"}}><del>₹500</del></span>
-                    <span style={{color:"#414146"}}>Consultation fee at clinic</span>
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+          <Grid
+            container
+            spacing={2}
+            sx={{ display: "flex", flexDirection: "column" }}
+          >
+            {doctorsData.map((ele, index) => (
+              <Grid item key={index} sx={{ display: "flex" }}>
+                <Card
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    maxWidth:"700px",
+                    padding: 2,
+                    boxShadow: 2,
+                    borderRadius: 2,
+                    "&:hover": { boxShadow: 4 },
+                  }}
+                >
+                  <CardMedia
+                    component="img"
+                    src={centerImg}
+                    alt="center image"
+                    sx={{ width: 120, height: 130 }}
+                  />
+                  <CardContent
+                    sx={{
+                      display: "flex",
+                      flexDirection: { xs: "column", sm: "row" },
+                      textAlign: "Left",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        textAlign: "Left",
+                        padding: "10px",
+                      }}
+                    >
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          fontWeight: 600,
+                          color: "#14BEF0",
+                          marginBottom: "5px",
+                        }}
+                      >
+                        {ele["Hospital Name"]}
+                      </Typography>
+                      <Typography variant="p" style={{ fontWeight: "bold" }}>
+                        {ele.Address}
+                      </Typography>
+                      <Typography variant="p" sx={{ marginBottom: "5px" }}>
+                        Smilessence Center for Advanced Dentistry +1 more
+                      </Typography>
+                      <Typography
+                        variant="p"
+                        sx={{
+                          display: "flex",
+                          gap: "7px",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        <span style={{ color: "#02A401" }}>FREE</span>
+                        <span style={{ color: "#787887" }}>
+                          <del>₹500</del>
+                        </span>
+                        <span style={{ color: "#414146" }}>
+                          Consultation fee at clinic
+                        </span>
+                      </Typography>
+                      <img
+                        src={thumbIcon}
+                        alt="thumbsup"
+                        style={{ width: 50, height: 25, borderRadius: "3.5px" }}
+                      />
+                    </Box>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "7px",
+                        alignItems: "center",
+                        justifyContent: "end",
+                      }}
+                    >
+                      <Typography variant="p" sx={{ color: "#01A400" }}>
+                        Available Today
+                      </Typography>
+                      <Button
+                        sx={{ color: "white", background: "#2AA7FF" }}
+                        variant="contained"
+                      >
+                        Book FREE Center Visit
+                      </Button>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
         </Box>
       </Box>
 
       {/* static image section */}
-      <Box>
-        <img src={topDentistInfoImg} />
+      <Box sx={{marginTop:{xs:"2px", sm:"68px" }}}>
+        <img src={topDentistInfoImg} alt="top dentist info" height={250} width={330} />
       </Box>
     </Box>
   );
