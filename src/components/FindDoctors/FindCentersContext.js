@@ -7,6 +7,7 @@ export const FindCentersProvider = ({ children }) => {
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [doctorsData, setDoctorsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   
   const location = useLocation(); // Get the current route
 
@@ -16,6 +17,7 @@ export const FindCentersProvider = ({ children }) => {
       setSelectedState("");
       setSelectedCity("");
       setDoctorsData([]);
+      setIsLoading(false);
     }
   }, [location.pathname]); // Re-run whenever the route changes
 
@@ -28,6 +30,8 @@ export const FindCentersProvider = ({ children }) => {
         setSelectedCity,
         doctorsData,
         setDoctorsData,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}

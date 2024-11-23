@@ -22,7 +22,7 @@ import TimeSlotPicker from "./TimeSlotPicker";
 import BookingModal from "./BookingModal";
 
 const AvailableCenters = () => {
-  const { doctorsData, selectedState, selectedCity } =
+  const { doctorsData, selectedState, selectedCity, isLoading } =
     useContext(FindCentersContext);
   const [openCenters, setOpenCenters] = useState([]);
 
@@ -35,7 +35,7 @@ const AvailableCenters = () => {
     evening: ["06:00 PM", "06:30 PM", "07:00 PM", "07:30 PM"],
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [bookingDetails,setBookingDetails] = useState({});
+  const [bookingDetails, setBookingDetails] = useState({});
   const [showBookingSuccess, setShowBookingSuccess] = useState(false);
 
   const totalSlots =
@@ -53,10 +53,10 @@ const AvailableCenters = () => {
   };
 
   //show booking modal
-  const handleBookingModal = (details)=>{
+  const handleBookingModal = (details) => {
     setBookingDetails(details);
     setIsModalOpen(true);
-  }
+  };
 
   return (
     <Box
@@ -69,7 +69,9 @@ const AvailableCenters = () => {
         flexDirection: { xs: "column", sm: "column", md: "row" },
       }}
     >
-      {selectedCity && selectedState && doctorsData ? (
+      {isLoading ? (
+        "Loading Data..."
+      ) : selectedCity && selectedState && doctorsData ? (
         <Box
           sx={{
             display: "flex",
@@ -233,7 +235,7 @@ const AvailableCenters = () => {
                                 availableSlots={availableSlots}
                                 selectedDate={selectedDate}
                                 details={doctorsData}
-                                 handleBooking={handleBookingModal}
+                                handleBooking={handleBookingModal}
                               />
                             </Box>
                           )}
@@ -251,13 +253,12 @@ const AvailableCenters = () => {
           Please select state and city.
         </Typography>
       )}
-
       {/* booking modal */}
       <BookingModal
-      open={isModalOpen}
-      setOpen={setIsModalOpen}
-      bookingDetails={bookingDetails}
-      showSucessMessage={setShowBookingSuccess}
+        open={isModalOpen}
+        setOpen={setIsModalOpen}
+        bookingDetails={bookingDetails}
+        showSucessMessage={setShowBookingSuccess}
       />
 
       {/* Static image section */}

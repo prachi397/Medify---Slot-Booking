@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { format } from "date-fns";
+import { useSnackbar } from "notistack";
 import { useState } from "react";
 
 export default function BookingModal({
@@ -16,6 +17,7 @@ export default function BookingModal({
   showSucessMessage,
 }) {
   const [email, setEmial] = useState("");
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleBooking = (e) => {
     e.preventDefault();
@@ -30,6 +32,9 @@ export default function BookingModal({
         { ...bookingDetails, bookingEmail: email },
       ])
     );
+    enqueueSnackbar("Booking Successful", {
+        variant: "success",
+      });
     showSucessMessage(true);
     setEmial("");
     setOpen(false);

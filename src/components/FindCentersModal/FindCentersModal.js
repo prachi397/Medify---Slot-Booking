@@ -29,10 +29,11 @@ const FindCentersModal = ({ pageName }) => {
     setSelectedCity,
     doctorsData,
     setDoctorsData,
+    loading,
+    setIsLoading
   } = useContext(FindCentersContext);
   const [state, setState] = useState([]);
   const [city, setCity] = useState([]);
-
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate("");
 
@@ -92,11 +93,14 @@ const FindCentersModal = ({ pageName }) => {
   //function to fetch doctors data based on selected city and state
   async function fetchDoctors(selectedState, selectedCity) {
     try {
+      setIsLoading(true);
       let url = `https://meddata-backend.onrender.com/data?state=${selectedState}&city=${selectedCity}`;
       let resp = await fetch(url);
       let result = await resp.json();
       setDoctorsData(result);
+      setIsLoading(false);
     } catch (err) {
+      setIsLoading(false);
       enqueueSnackbar("Error in fetching doctor data", {
         variant: "error",
       });
@@ -220,9 +224,6 @@ const FindCentersModal = ({ pageName }) => {
           Search
         </Button>
       </Box>
-      {/* {pageName === "FindDoctors" && (
-        <AvailableCenters/>
-      )} */}
       {pageName === "HomePage" && (
         <>
           <Typography variant="h3" sx={{ fontSize: "26px" }}>
