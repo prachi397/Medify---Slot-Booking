@@ -55,13 +55,14 @@ const AvailableCenters = () => {
 
   return (
     <Box
-      sx={{
-        display: "flex",
-        gap: "20px",
-        paddingTop: "20px",
-        justifyContent: "center",
-        flexDirection: { xs: "column", sm:"column", md: "row" },
-      }}
+    sx={{
+      display: "flex",
+      gap: "20px",
+      paddingTop: "20px",
+      paddingX: { xs: "10px", sm: "20px" },
+      justifyContent: "center",
+      flexDirection: { xs: "column", sm: "column", md: "row" },
+    }}
     >
       {selectedCity && selectedState && doctorsData ? (
         <Box
@@ -73,7 +74,7 @@ const AvailableCenters = () => {
             cursor: "pointer",
           }}
         >
-          <Typography variant="h3" sx={{ fontSize: "24px" }}>
+          <Typography variant="h3"  sx={{ fontSize: { xs: "16px", sm: "20px", md: "24px" } }}>
             {doctorsData?.length} medical centers available in {selectedState}
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", gap: "7px" }}>
@@ -86,7 +87,7 @@ const AvailableCenters = () => {
             <Grid
               container
               spacing={2}
-              sx={{ display: "flex", flexDirection: "column" }}
+              sx={{ display: "flex", flexDirection: "column", gap: { xs: 2, sm: 3 } }}
             >
               {doctorsData.map((ele, index) => {
                 const isCenterOpen = openCenters.includes(ele["Provider ID"]);
@@ -107,13 +108,14 @@ const AvailableCenters = () => {
                         component="img"
                         src={centerImg}
                         alt="center image"
-                        sx={{ width: 120, height: 130 }}
+                        sx={{ width: { xs: 100, sm: 120 }, height: { xs: 100, sm: 130 } }}
                       />
                       <CardContent
                         sx={{
                           display: "flex",
                           flexDirection: "column",
                           textAlign: "Left",
+                          padding: { xs: 1, sm: 2 },
                         }}
                       >
                         <Box

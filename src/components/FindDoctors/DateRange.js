@@ -50,7 +50,7 @@ const DateRange = ({ selectedDate, setSelectedDate, totalSlots }) => {
         breakpoints={{
           0: { slidesPerView: 1, spaceBetween: 5 },
           767: { slidesPerView: 3},
-          1024: { slidesPerView: 4},
+          1024: { slidesPerView: 3},
         }}
       >
         {data.map((item, index) => (
