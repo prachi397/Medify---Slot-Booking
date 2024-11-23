@@ -5,59 +5,43 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Divider,
   Grid,
+  Stack,
   Typography,
 } from "@mui/material";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
 import topDentistInfoImg from "../../Assets/sensodyne_dweb.png.png";
 import verifiedImg from "../../Assets/verified.1f87346e730e 1.png";
 import { FindCentersContext } from "./FindCentersContext";
 import centerImg from "../../Assets/center.png";
 import thumbIcon from "../../Assets/thumb.png";
-import "./findDoctors.css";
+import { format, add, startOfDay, isEqual } from "date-fns";
+import DateRange from "./DateRange";
+import TimeSlotPicker from "./TimeSlotPicker";
 
 const AvailableCenters = () => {
   const { doctorsData, selectedState, selectedCity } =
     useContext(FindCentersContext);
   const [openCenters, setOpenCenters] = useState([]);
-  const [selectedDateIndexes, setSelectedDateIndexes] = useState({});
-  const [selectedDateIndex, setSelectedDateIndex] = useState(0); // Track selected date index
-  const [selectedSlot, setSelectedSlot] = useState(null);
 
-  // Generate date range for the next 7 days
-  const generateDateRange = () => {
-    const dates = [];
-    const today = new Date();
-    for (let i = 0; i < 7; i++) {
-      const nextDate = new Date(today);
-      nextDate.setDate(today.getDate() + i);
-      const formattedDate =
-        i === 0
-          ? "Today"
-          : i === 1
-          ? "Tomorrow"
-          : nextDate.toLocaleDateString("en-US", {
-              weekday: "short",
-              day: "numeric",
-              month: "short",
-            });
-      dates.push(formattedDate);
-    }
-    return dates;
-  };
+  const [selectedDate, setSelectedDate] = useState(startOfDay(new Date()));
 
-  const dateRange = generateDateRange();
-  console.log("date range", dateRange);
+  const totalSlots = [
+    "11 Slots Available",
+    "17 Slots Available",
+    "18 Slots Available",
+    "15 Slots Available",
+    "12 Slots Available",
+    "14 Slots Available",
+    "16 Slots Available",
+  ];
 
   // Time slots for Morning, Afternoon, and Evening
-  const timeSlots = {
-    morning: ["10:00 AM", "11:30 AM"],
-    afternoon: ["12:00 PM", "01:00 PM", "02:30 PM"],
-    evening: ["06:00 PM", "07:30 PM", "08:30 PM"],
+  const availableSlots = {
+    morning: ["11:30 AM"],
+    afternoon: ["12:00 PM","12:30 PM", "01:30 PM", "02:00 PM", "02:30 PM"],
+    evening: ["06:00 PM","06:30 PM","07:00 PM", "07:30 PM"],
   };
 
   // Toggle the visibility of the booking section for a specific card
@@ -74,9 +58,9 @@ const AvailableCenters = () => {
       sx={{
         display: "flex",
         gap: "20px",
-        padding: { xs: 2, sm: 4 },
+        paddingTop: "20px",
         justifyContent: "center",
-        flexDirection: { xs: "column", sm: "row" },
+        flexDirection: { xs: "column", sm:"column", md: "row" },
       }}
     >
       {selectedCity && selectedState && doctorsData ? (
@@ -106,15 +90,13 @@ const AvailableCenters = () => {
             >
               {doctorsData.map((ele, index) => {
                 const isCenterOpen = openCenters.includes(ele["Provider ID"]);
-                const selectedDateIndex =
-                  selectedDateIndexes[ele["Provider ID"]] || 0;
 
                 return (
                   <Grid item key={index} sx={{ display: "flex" }}>
                     <Card
                       sx={{
                         display: "flex",
-                        maxWidth: "700px",
+                        maxWidth: "750px",
                         padding: 2,
                         boxShadow: 2,
                         borderRadius: 2,
@@ -218,27 +200,27 @@ const AvailableCenters = () => {
                             </Button>
                           </Box>
                         </Box>
-                        {/* Booking Section */}
-                        {isCenterOpen && (
+                           {/* Booking Section */}
+                           <Box sx={{marginLeft:"-82px"}}>
+                     {isCenterOpen && (
                           <Box>
                             {/* swiper for dates */}
-                            <Swiper
-                              style={{ width: "480px", marginTop: "20px" }}
-                              className="swiper-carousel"
-                              modules={[Navigation, Pagination]}
-                              navigation
-                              pagination={{ clickable: true }}
-                              spaceBetween={8}
-                              slidesPerView={2.7}
-                            >
-                              {dateRange.map((date, index) => (
-                                <SwiperSlide key={index}>
-                                  <Typography>{date}</Typography>
-                                </SwiperSlide>
-                              ))}
-                            </Swiper>
+                            <DateRange
+                              selectedDate={selectedDate}
+                              setSelectedDate={setSelectedDate}
+                              totalSlots={totalSlots}
+                            />
+
+                            {/* time slots available */}
+                           <TimeSlotPicker
+                           availableSlots={availableSlots}
+                           selectedDate={selectedDate}
+                          //  details={details}
+                          //  handleBooking={handleBooking}
+                           />
                           </Box>
                         )}
+                        </Box>
                       </CardContent>
                     </Card>
                   </Grid>
