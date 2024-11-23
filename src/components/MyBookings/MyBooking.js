@@ -20,15 +20,14 @@ import { format } from "date-fns";
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
-  const [filteredBookings, setFilteredBookings] = useState([]);
+  const [searchedHospital, setSearchedHospital] = useState("");
 
   useEffect(() => {
     const localBookings = localStorage.getItem("bookings") || "[]";
     setBookings(JSON.parse(localBookings));
-  }, []);
+  }, [searchedHospital]);
 
-  console.log("bookings==>", bookings);
-
+  // function to format date
   const formatDate = (day) => {
     if (day) {
       const date = new Date(day);
@@ -38,6 +37,17 @@ const MyBookings = () => {
     }
   };
 
+  //functiom to search hospitals
+  function handleSearchHospital() {
+    const filteredValues = bookings.filter((ele) => {
+      const hospitalDetails = ele[0] || ele[1];
+      const hospitalName = hospitalDetails?.["Hospital Name"] || "";
+      return hospitalName
+        .toLowerCase()
+        .includes(searchedHospital.toLowerCase());
+    });
+    setBookings(filteredValues);
+  }
   return (
     <div>
       <Navbar pageName="MyBookings" />
@@ -54,7 +64,7 @@ const MyBookings = () => {
           display: "flex",
           flexDirection: { xs: "column", sm: "column", md: "row" },
           position: "relative",
-          marginBottom: { xs: "80px",sm:"60px", md: "60px" },
+          marginBottom: { xs: "80px", sm: "60px", md: "60px" },
         }}
       >
         <Typography
@@ -89,6 +99,8 @@ const MyBookings = () => {
         >
           <TextField
             placeholder="Search By Hospital"
+            value={searchedHospital}
+            onChange={(e) => setSearchedHospital(e.target.value)}
             variant="outlined"
             size="small"
             fullWidth
@@ -108,7 +120,7 @@ const MyBookings = () => {
               textTransform: "none",
             }}
             startIcon={<SearchIcon />}
-            // onClick={handleBtnClick}
+            onClick={handleSearchHospital}
           >
             Search
           </Button>
@@ -125,135 +137,148 @@ const MyBookings = () => {
         }}
       >
         {/* my bookings here */}
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
-            textAlign: "left",
-            cursor: "pointer",
-            padding:{xs:"10px",sm:"15px",md:"30px"}
-          }}
-        >
-          <Box>
-            <Grid
-              container
-              spacing={2}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: { xs: 2, sm: 3 },
-              }}
-            >
-              {bookings.map((ele, index) => {
-                const hospitalDetails = ele[0] || ele[1];
-                return (
-                  <Grid item key={index} sx={{ display: "flex" }}>
-                    <Card
-                      sx={{
-                        display: "flex",
-                        maxWidth: "750px",
-                        padding: 2,
-                        boxShadow: 2,
-                        borderRadius: 2,
-                        "&:hover": { boxShadow: 4 },
-                      }}
-                    >
-                      <CardMedia
-                        component="img"
-                        src={centerImg}
-                        alt="center image"
-                        sx={{
-                          width: { xs: 100, sm: 120 },
-                          height: { xs: 100, sm: 130 },
-                        }}
-                      />
-                      <CardContent
+        {bookings?.length ? (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+              textAlign: "left",
+              cursor: "pointer",
+              padding: { xs: "10px", sm: "15px", md: "30px" },
+            }}
+          >
+            <Box>
+              <Grid
+                container
+                spacing={2}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: { xs: 2, sm: 3 },
+                }}
+              >
+                {bookings.map((ele, index) => {
+                  const hospitalDetails = ele[0] || ele[1];
+                  return (
+                    <Grid item key={index} sx={{ display: "flex" }}>
+                      <Card
                         sx={{
                           display: "flex",
-                          flexDirection: "column",
-                          textAlign: "Left",
-                          padding: { xs: 1, sm: 2 },
+                          maxWidth: "750px",
+                          padding: 2,
+                          boxShadow: 2,
+                          borderRadius: 2,
+                          "&:hover": { boxShadow: 4 },
                         }}
                       >
-                        <Box
+                        <CardMedia
+                          component="img"
+                          src={centerImg}
+                          alt="center image"
+                          sx={{
+                            width: { xs: 100, sm: 120 },
+                            height: { xs: 100, sm: 130 },
+                          }}
+                        />
+                        <CardContent
                           sx={{
                             display: "flex",
-                            flexDirection: { xs: "column", sm: "row" },
+                            flexDirection: "column",
                             textAlign: "Left",
-                            justifyContent:"start"
+                            padding: { xs: 1, sm: 2 },
                           }}
                         >
                           <Box
                             sx={{
                               display: "flex",
-                              flexDirection: "column",
+                              flexDirection: { xs: "column", sm: "row" },
                               textAlign: "Left",
-                              padding: "10px",
-                            }}
-                          >
-                            <Typography
-                              variant="body1"
-                              sx={{
-                                fontWeight: 600,
-                                color: "#14BEF0",
-                                marginBottom: "10px",
-                              }}
-                            >
-                              {hospitalDetails?.["Hospital Name"]}
-                            </Typography>
-                            <Typography
-                              variant="p"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              {hospitalDetails?.Address}
-                            </Typography>
-                            <Typography
-                              variant="p"
-                              sx={{ marginBottom: "35px" }}
-                            >
-                              Smilessence Center for Advanced Dentistry +1 more
-                            </Typography>
-                            <img
-                              src={thumbIcon}
-                              alt="thumbsup"
-                              style={{
-                                width: 50,
-                                height: 25,
-                                borderRadius: "3.5px",
-                              }}
-                            />
-                          </Box>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              gap: "7px",
-                              alignItems: "flex-start",
                               justifyContent: "start",
                             }}
                           >
-                             <Button
-                              sx={{ color: "#2AA7FF", border:"1px solid #2AA7FF" }}
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                textAlign: "Left",
+                                padding: "10px",
+                              }}
                             >
-                              {ele.bookingTime}
-                            </Button>
-                            <Button
-                              sx={{ color:"#007100", border:"1px solid #007100" }}
+                              <Typography
+                                variant="body1"
+                                sx={{
+                                  fontWeight: 600,
+                                  color: "#14BEF0",
+                                  marginBottom: "10px",
+                                }}
+                              >
+                                {hospitalDetails?.["Hospital Name"]}
+                              </Typography>
+                              <Typography
+                                variant="p"
+                                style={{ fontWeight: "bold" }}
+                              >
+                                {hospitalDetails?.Address}
+                              </Typography>
+                              <Typography
+                                variant="p"
+                                sx={{ marginBottom: "35px" }}
+                              >
+                                Smilessence Center for Advanced Dentistry +1
+                                more
+                              </Typography>
+                              <img
+                                src={thumbIcon}
+                                alt="thumbsup"
+                                style={{
+                                  width: 50,
+                                  height: 25,
+                                  borderRadius: "3.5px",
+                                }}
+                              />
+                            </Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                gap: "7px",
+                                alignItems: "flex-start",
+                                justifyContent: "start",
+                              }}
                             >
-                              {formatDate(ele.bookingDate)}
-                            </Button>
+                              <Button
+                                sx={{
+                                  color: "#2AA7FF",
+                                  border: "1px solid #2AA7FF",
+                                }}
+                              >
+                                {ele.bookingTime}
+                              </Button>
+                              <Button
+                                sx={{
+                                  color: "#007100",
+                                  border: "1px solid #007100",
+                                }}
+                              >
+                                {formatDate(ele.bookingDate)}
+                              </Button>
+                            </Box>
                           </Box>
-                        </Box>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                );
-              })}
-            </Grid>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            </Box>
           </Box>
-        </Box>
+        ) : (
+          <Typography variant="h4" sx={{ color: "#2AA7FF" }}>
+            No Bookings Found
+          </Typography>
+        )}
         {/* Static image section */}
-        <Box sx={{  paddingTop:{xs:"10px",sm:"15px",md:"30px"}}}>
+        <Box sx={{ paddingTop: { xs: "10px", sm: "15px", md: "30px" } }}>
           <img
             src={topDentistInfoImg}
             alt="top dentist info"
