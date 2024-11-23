@@ -31,7 +31,7 @@ const DateRange = ({ selectedDate, setSelectedDate, totalSlots }) => {
   const data = dateItems.map((day, idx) => ({
     day, // Store the actual Date object
     date: customDateFormat(day), // Store the formatted date string
-    slots: totalSlots[idx],
+    slots: `${totalSlots} Slots Available`,
   }));
   const handleDateClick = (day) => {
     setSelectedDate(day);

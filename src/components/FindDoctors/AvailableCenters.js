@@ -16,9 +16,10 @@ import verifiedImg from "../../Assets/verified.1f87346e730e 1.png";
 import { FindCentersContext } from "./FindCentersContext";
 import centerImg from "../../Assets/center.png";
 import thumbIcon from "../../Assets/thumb.png";
-import { format, add, startOfDay, isEqual } from "date-fns";
+import { startOfDay } from "date-fns";
 import DateRange from "./DateRange";
 import TimeSlotPicker from "./TimeSlotPicker";
+import BookingModal from "./BookingModal";
 
 const AvailableCenters = () => {
   const { doctorsData, selectedState, selectedCity } =
@@ -27,22 +28,20 @@ const AvailableCenters = () => {
 
   const [selectedDate, setSelectedDate] = useState(startOfDay(new Date()));
 
-  const totalSlots = [
-    "11 Slots Available",
-    "17 Slots Available",
-    "18 Slots Available",
-    "15 Slots Available",
-    "12 Slots Available",
-    "14 Slots Available",
-    "16 Slots Available",
-  ];
-
   // Time slots for Morning, Afternoon, and Evening
   const availableSlots = {
     morning: ["11:30 AM"],
-    afternoon: ["12:00 PM","12:30 PM", "01:30 PM", "02:00 PM", "02:30 PM"],
-    evening: ["06:00 PM","06:30 PM","07:00 PM", "07:30 PM"],
+    afternoon: ["12:00 PM", "12:30 PM", "01:30 PM", "02:00 PM", "02:30 PM"],
+    evening: ["06:00 PM", "06:30 PM", "07:00 PM", "07:30 PM"],
   };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [bookingDetails,setBookingDetails] = useState({});
+  const [showBookingSuccess, setShowBookingSuccess] = useState(false);
+
+  const totalSlots =
+    availableSlots.morning.length +
+    availableSlots.afternoon.length +
+    availableSlots.evening.length;
 
   // Toggle the visibility of the booking section for a specific card
   const handleCardClick = (id) => {
@@ -53,16 +52,22 @@ const AvailableCenters = () => {
     );
   };
 
+  //show booking modal
+  const handleBookingModal = (details)=>{
+    setBookingDetails(details);
+    setIsModalOpen(true);
+  }
+
   return (
     <Box
-    sx={{
-      display: "flex",
-      gap: "20px",
-      paddingTop: "20px",
-      paddingX: { xs: "10px", sm: "20px" },
-      justifyContent: "center",
-      flexDirection: { xs: "column", sm: "column", md: "row" },
-    }}
+      sx={{
+        display: "flex",
+        gap: "20px",
+        paddingTop: "20px",
+        paddingX: { xs: "10px", sm: "20px" },
+        justifyContent: "center",
+        flexDirection: { xs: "column", sm: "column", md: "row" },
+      }}
     >
       {selectedCity && selectedState && doctorsData ? (
         <Box
@@ -74,7 +79,10 @@ const AvailableCenters = () => {
             cursor: "pointer",
           }}
         >
-          <Typography variant="h3"  sx={{ fontSize: { xs: "16px", sm: "20px", md: "24px" } }}>
+          <Typography
+            variant="h3"
+            sx={{ fontSize: { xs: "16px", sm: "20px", md: "24px" } }}
+          >
             {doctorsData?.length} medical centers available in {selectedState}
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", gap: "7px" }}>
@@ -87,7 +95,11 @@ const AvailableCenters = () => {
             <Grid
               container
               spacing={2}
-              sx={{ display: "flex", flexDirection: "column", gap: { xs: 2, sm: 3 } }}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: { xs: 2, sm: 3 },
+              }}
             >
               {doctorsData.map((ele, index) => {
                 const isCenterOpen = openCenters.includes(ele["Provider ID"]);
@@ -108,7 +120,10 @@ const AvailableCenters = () => {
                         component="img"
                         src={centerImg}
                         alt="center image"
-                        sx={{ width: { xs: 100, sm: 120 }, height: { xs: 100, sm: 130 } }}
+                        sx={{
+                          width: { xs: 100, sm: 120 },
+                          height: { xs: 100, sm: 130 },
+                        }}
                       />
                       <CardContent
                         sx={{
@@ -124,7 +139,6 @@ const AvailableCenters = () => {
                             flexDirection: { xs: "column", sm: "row" },
                             textAlign: "Left",
                           }}
-                          onClick={() => handleCardClick(ele["Provider ID"])}
                         >
                           <Box
                             sx={{
@@ -133,6 +147,7 @@ const AvailableCenters = () => {
                               textAlign: "Left",
                               padding: "10px",
                             }}
+                            onClick={() => handleCardClick(ele["Provider ID"])}
                           >
                             <Typography
                               variant="body1"
@@ -202,26 +217,26 @@ const AvailableCenters = () => {
                             </Button>
                           </Box>
                         </Box>
-                           {/* Booking Section */}
-                           <Box sx={{marginLeft:"-82px"}}>
-                     {isCenterOpen && (
-                          <Box>
-                            {/* swiper for dates */}
-                            <DateRange
-                              selectedDate={selectedDate}
-                              setSelectedDate={setSelectedDate}
-                              totalSlots={totalSlots}
-                            />
+                        {/* Booking Section */}
+                        <Box sx={{ marginLeft: "-82px" }}>
+                          {isCenterOpen && (
+                            <Box>
+                              {/* swiper for dates */}
+                              <DateRange
+                                selectedDate={selectedDate}
+                                setSelectedDate={setSelectedDate}
+                                totalSlots={totalSlots}
+                              />
 
-                            {/* time slots available */}
-                           <TimeSlotPicker
-                           availableSlots={availableSlots}
-                           selectedDate={selectedDate}
-                          //  details={details}
-                          //  handleBooking={handleBooking}
-                           />
-                          </Box>
-                        )}
+                              {/* time slots available */}
+                              <TimeSlotPicker
+                                availableSlots={availableSlots}
+                                selectedDate={selectedDate}
+                                details={doctorsData}
+                                 handleBooking={handleBookingModal}
+                              />
+                            </Box>
+                          )}
                         </Box>
                       </CardContent>
                     </Card>
@@ -236,6 +251,14 @@ const AvailableCenters = () => {
           Please select state and city.
         </Typography>
       )}
+
+      {/* booking modal */}
+      <BookingModal
+      open={isModalOpen}
+      setOpen={setIsModalOpen}
+      bookingDetails={bookingDetails}
+      showSucessMessage={setShowBookingSuccess}
+      />
 
       {/* Static image section */}
       <Box sx={{ marginTop: { xs: "2px", sm: "68px" } }}>

@@ -19,7 +19,6 @@ import AmbulanceIcon from "../../Assets/Ambulance.png";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import AvailableCenters from "../FindDoctors/AvailableCenters";
 import { FindCentersContext } from "../FindDoctors/FindCentersContext";
 
 const FindCentersModal = ({ pageName }) => {

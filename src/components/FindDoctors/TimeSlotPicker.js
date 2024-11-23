@@ -2,9 +2,11 @@ import styled from "@emotion/styled";
 import { Stack, Typography, Divider, Chip } from "@mui/material";
 
 const TimeSlotPicker = ({ availableSlots, details, handleBooking, selectedDate }) => {
+    
   const handleClick = (slot) => {
-    // handleBooking({ ...details, bookingDate: selectedDate, bookingTime: slot });
+    handleBooking({ ...details, bookingDate: selectedDate, bookingTime: slot });
   };
+  
 
   const CustomChip = ({ label, handleClick }) => (
     <Chip
